@@ -1,0 +1,22 @@
+{
+  "name": "server_side_javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hello.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbungbbun/study-nodejs2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bbungbbun/study-nodejs2/issues"
+  },
+  "homepage": "https://github.com/bbungbbun/study-nodejs2#readme",
+  "dependencies": {
+    "underscore": "^1.13.6"
+  }
+}
