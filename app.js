@@ -38,9 +38,9 @@ app.get('/route',function(req, res){
 // query string을 이용해서 정보를 전달
 app.get('/topic', function(req, res){
     var topics = [
-      'Javascript is....',
-      'Nodejs is...',
-      'Express is...'
+        'Javascript is....',
+        'Nodejs is...',
+        'Express is...'
     ];
     var output = `
     <a href="/topic?id=0">JavaScript</a><br>
@@ -49,26 +49,26 @@ app.get('/topic', function(req, res){
     ${topics[req.query.id]}
     `
     res.send(output);
-  })
+})
 
-  // 시멘틱 url 방식
-  app.get('/topic/:id', function(req, res){
-    var topics = [
-      'Javascript is....',
-      'Nodejs is...',
-      'Express is...'
-    ];
-    var output = `
-    <a href="/topic?id=0">JavaScript</a><br>
-    <a href="/topic?id=1">Nodejs</a><br>
-    <a href="/topic?id=2">Express</a><br><br>
-    ${topics[req.params.id]}
-    `
-    res.send(output);
-  })
-  app.get('/topic/:id/:mode', function(req, res){
-    res.send(req.params.id+','+req.params.mode)
-  })
+// 시멘틱 url 방식
+app.get('/topic/:id', function(req, res){
+var topics = [
+    'Javascript is....',
+    'Nodejs is...',
+    'Express is...'
+];
+var output = `
+<a href="/topic/0">JavaScript</a><br>
+<a href="/topic/1">Nodejs</a><br>
+<a href="/topic/2">Express</a><br><br>
+${topics[req.params.id]}
+`
+res.send(output);
+})
+app.get('/topic/:id/:mode', function(req, res){
+res.send(req.params.id+','+req.params.mode)
+})
 // 동적인 웹 구현
 app.get('/dynamic',function(req, res){
     const lis = ``
