@@ -1,12 +1,36 @@
 const express = require('express');
+var bodyParser = require('body-parser');
 const app = express();
 // 템플릿 엔진 jade
 // app.set('view engine','jade');
 // app.set('views','./views');
 app.use(express.static('public'));
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
 app.get('/',function(req, res){
     res.send('hello home page');
 });
+
+app.get('/form', function(req, res){
+    res.render('form');
+});
+
+//get 방식
+// app.get('/form_receiver', function(req, res){
+//     var title = req.query.title; // query
+//     var description = req.query.description;
+//     res.send(title+','+description);
+//   });
+
+app.post('/form_receiver', function(req, res){
+var title = req.body.title; // body
+// 그냥 사용하면 undefined가 뜸
+// body-parser 다운로드 후 사용
+var description = req.body.description;
+res.send(title+','+description);
+});
+
 app.get('/route',function(req, res){
     res.send('hello router, <img src="/cat.jpg">');
 });
