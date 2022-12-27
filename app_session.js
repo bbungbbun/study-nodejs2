@@ -18,6 +18,20 @@ if(req.session.count) {
 res.send('count : '+req.session.count);
 });
 
+app.get('/welcome', function(req, res){
+    if(req.session.displayName) {
+      res.send(`
+        <h1>Hello, ${req.session.displayName}</h1>
+        <a href="/auth/logout">logout</a>
+      `);
+    } else {
+      res.send(`
+        <h1>Welcome</h1>
+        <a href="/auth/login">Login</a>
+      `);
+    }
+  });
+
 app.post('/auth/login', function(req, res){
     var user = {
       username:'egoing',
@@ -32,7 +46,7 @@ app.post('/auth/login', function(req, res){
     } else {
       res.send('Who are you? <a href="/auth/login">login</a>');
     }
-  });
+});
 app.get('/auth/login', function(req, res){
     var output = `
     <h1>Login</h1>
@@ -49,7 +63,7 @@ app.get('/auth/login', function(req, res){
     </form>
     `;
     res.send(output);
-  });
+});
 
 app.listen(3003, function(){
     console.log('Connected 3003 port!!!');
