@@ -1,7 +1,8 @@
 const express = require('express')
 const session = require('express-session')
+const bodyParser = require('body-parser');
 const app = express();
-
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
     secret: '1234DSFs@adf1234!@#$asd',
     resave: false,
@@ -17,6 +18,21 @@ if(req.session.count) {
 res.send('count : '+req.session.count);
 });
 
+app.post('/auth/login', function(req, res){
+    var user = {
+      username:'egoing',
+      password:'111',
+      displayName:'Egoing'
+    };
+    var uname = req.body.username;
+    var pwd = req.body.password;
+    if(uname === user.username && pwd === user.password){
+      req.session.displayName = user.displayName;
+      res.redirect('/welcome');
+    } else {
+      res.send('Who are you? <a href="/auth/login">login</a>');
+    }
+  });
 app.get('/auth/login', function(req, res){
     var output = `
     <h1>Login</h1>
@@ -34,7 +50,7 @@ app.get('/auth/login', function(req, res){
     `;
     res.send(output);
   });
-  
+
 app.listen(3003, function(){
     console.log('Connected 3003 port!!!');
 });
