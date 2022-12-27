@@ -17,6 +17,24 @@ if(req.session.count) {
 res.send('count : '+req.session.count);
 });
 
+app.get('/auth/login', function(req, res){
+    var output = `
+    <h1>Login</h1>
+    <form action="/auth/login" method="post">
+      <p>
+        <input type="text" name="username" placeholder="username">
+      </p>
+      <p>
+        <input type="password" name="password" placeholder="password">
+      </p>
+      <p>
+        <input type="submit">
+      </p>
+    </form>
+    `;
+    res.send(output);
+  });
+  
 app.listen(3003, function(){
     console.log('Connected 3003 port!!!');
 });
