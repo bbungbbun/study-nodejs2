@@ -1,7 +1,8 @@
 const cookieParser = require('cookie-parser');
 const express = require('express')
 const app = express();
-app.use(cookieParser());
+// app.use(cookieParser());
+app.use(cookieParser('23879ASDF234sdf@!#$a')); // 쿠키 암호화
 
 // 카트리스트
 
@@ -21,8 +22,8 @@ app.get('/products', function(req, res){
 });
 app.get('/cart/:id', function(req, res){
   var id = req.params.id;
-  if(req.cookies.cart) {
-    var cart = req.cookies.cart;
+  if(req.signedCookies.cart) {
+    var cart = req.signedCookies.cart;
   } else {
     var cart = {};
   }
@@ -30,11 +31,11 @@ app.get('/cart/:id', function(req, res){
     cart[id] = 0;
   }
   cart[id] = parseInt(cart[id])+1;
-  res.cookie('cart', cart);
+  res.cookie('cart', cart, {signed:true});
   res.redirect('/cart');
 });
 app.get('/cart', function(req, res){
-  var cart = req.cookies.cart;
+  var cart = req.signedCookies.cart;
   if(!cart) {
     res.rend('Empty!');
   } else {
@@ -59,11 +60,12 @@ app.get('/count', function(req, res){
 //   } else {
 //     var count = 0;
 //   } 
+//  count = count+1
 // 코드 수정본
-  let count = req.cookies.count;
-  count ? count = parseInt(req.cookies.count) : count = 0 ;
+  let count = req.signedCookies.count;
+  count ? count = parseInt(count) : count = 0 ;
   count++;
-  res.cookie('count', count);
+  res.cookie('count', count ,{signed: true});
   res.send('count : ' + count);
 });
 app.listen(3003, function(){
