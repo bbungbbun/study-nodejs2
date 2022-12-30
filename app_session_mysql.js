@@ -1,8 +1,8 @@
-const express = require('express')
-const session = require('express-session')
-const MySQLStore = require('express-mysql-session')(session);
-const bodyParser = require('body-parser');
-const app = express();
+var express = require('express');
+var session = require('express-session');
+var MySQLStore = require('express-mysql-session')(session);
+var bodyParser = require('body-parser');
+var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
   secret: '1234DSFs@adf1234!@#$asd',
@@ -16,21 +16,18 @@ app.use(session({
     database:'o2'
   })
 }));
-
 app.get('/count', function(req, res){
-if(req.session.count) {
+  if(req.session.count) {
     req.session.count++;
-} else {
+  } else {
     req.session.count = 1;
-}
-res.send('count : '+req.session.count);
+  }
+  res.send('count : '+req.session.count);
 });
-
 app.get('/auth/logout', function(req, res){
   delete req.session.displayName;
   res.redirect('/welcome');
 });
-
 app.get('/welcome', function(req, res){
   if(req.session.displayName) {
     res.send(`
@@ -44,7 +41,6 @@ app.get('/welcome', function(req, res){
     `);
   }
 });
-
 app.post('/auth/login', function(req, res){
   var user = {
     username:'egoing',
@@ -77,7 +73,6 @@ app.get('/auth/login', function(req, res){
   `;
   res.send(output);
 });
-
 app.listen(3003, function(){
-    console.log('Connected 3003 port!!!');
+  console.log('Connected 3003 port!!!');
 });
